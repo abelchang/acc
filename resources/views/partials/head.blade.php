@@ -10,3 +10,6 @@
 <script src="{{ asset('bower/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('bower/bootstrap/dist/js/bootstrap.min.js') }} " integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script type="text/javascript" src=" {{ asset('bower/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') }} " ></script>
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
