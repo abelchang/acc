@@ -21,13 +21,13 @@ $today = Carbon::today();
                         <form style="margin-top: 20px" class="form-horizontal" method="POST" action="{{ route('acc.store') }}">
                         	 {{ csrf_field() }}
                             <div class="form-group">
-                                <label for="title" class="col-sm-2 control-label">消費日期</label>
+                                <label for="title" class="col-sm-2 control-label">開銷日期</label>
                                 <div class="col-sm-4">
                                     <input type="date" class="form-control " id="create" name="create" value="{{$today->toDateString()}}">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="room" class="col-sm-2 control-label">消費項目</label>
+                                <label for="room" class="col-sm-2 control-label">開銷項目</label>
                                 <div class="col-sm-2">
                                     <select class="form-control" name="item">
                                         @foreach($items as $item)
@@ -39,7 +39,7 @@ $today = Carbon::today();
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="content" class="col-sm-2 control-label">消費金額</label>
+                                <label for="content" class="col-sm-2 control-label">開銷金額</label>
                                 <div class="col-sm-4">
                                     <input type="text" pattern="\d*" class="form-control" name="price" value="0" >
                                 </div>
