@@ -10,7 +10,7 @@ class Acc extends Model
 
     protected $fillable = ['create','price','item'];
 
-    public function item() {
+    public function items() {
     	return $this->belongsTo(Item::class,'item','id');
     }
 }

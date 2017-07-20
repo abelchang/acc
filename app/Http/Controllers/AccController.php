@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Item;
 use App\Acc;
+use Carbon\Carbon;
+
 
 class AccController extends Controller
 {
@@ -15,8 +17,14 @@ class AccController extends Controller
      */
     public function index()
     {
-        //
-        return view('acc.index');
+        $indexDay = Carbon::today();
+        $priceTotal = 0;
+        $accs = Acc::whereMonth('create',$indexDay->month)->orderBy('create','ASC')->get();
+        foreach ($accs as $key => $acc) {
+            $priceTotal += $acc->price;
+        }
+
+        return view('acc.index',['indexDay'=>$indexDay, 'accs'=>$accs, 'priceTotal'=>$priceTotal]);
     }
 
     /**
@@ -41,7 +49,7 @@ class AccController extends Controller
     {
         $acc = new Acc($request->all());
         $acc->save();
-        return view('acc.index');
+        return redirect('/');
     }
 
     /**
