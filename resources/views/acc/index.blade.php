@@ -38,13 +38,14 @@ $staDate = Carbon::now()->addMonth(4);
 			<!-- Default panel contents -->
 			<div class="panel-heading">開銷列表</div>
 			<!-- Table -->
-			<table class="table table-hover">
+			<table class="table table-hover table-responsive">
 				<thead>
 					<tr>
 						<th>#</th>
 						<th>日期</th>
 						<th>項目</th>
 						<th>金額</th>
+						<th>選項</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -54,13 +55,7 @@ $staDate = Carbon::now()->addMonth(4);
 						<td>{{$acc->create}}</td>
 						<td>{{$acc->items->name}}</td>
 						<td>{{$acc->price}}</td>
-						<!-- <td>
-							<div class="btn-group" role="group" aria-label="...">
-								<button type="button" class="btn btn-default">Left</button>
-  								<button type="button" class="btn btn-default">Middle</button>
-							</div>
-						</td> -->
-						 <td><button type="button" class="btn btn-primary">button</button></td>
+						<td><a href="#"><span class="badge">修改</span></a><a href="#"><span class="badge">刪除</span></a></td>
 					</tr>
 					@endforeach
 				</tbody>
