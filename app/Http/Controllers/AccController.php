@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests;
 use App\Item;
 use App\Acc;
 use Carbon\Carbon;
+use Redirect;
 
 
 class AccController extends Controller
@@ -49,7 +51,7 @@ class AccController extends Controller
     {
         $acc = new Acc($request->all());
         $acc->save();
-        return redirect('/');
+        return back();
     }
 
     /**
@@ -71,7 +73,9 @@ class AccController extends Controller
      */
     public function edit($id)
     {
-        //
+        $acc = Acc::findOrFail($id);
+        $items = Item::orderBy('name','ASC')->get();
+        return view('acc.edit',[ 'acc'=>$acc ,'items'=>$items]);
     }
 
     /**
@@ -83,7 +87,11 @@ class AccController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $acc = Acc::findOrFail($id);
+        $acc->fill($request->all());
+        $acc->save();
+        
+        return redirect('/');
     }
 
     /**
@@ -94,6 +102,8 @@ class AccController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $acc=Acc::findOrFail($id);
+        $acc->delete();
+        return back();
     }
 }

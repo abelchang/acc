@@ -19,3 +19,4 @@ Route::get('/', 'AccController@index');
 Route::get('acc/create','AccController@create')->name('acc.create');
 
 Route::resource('acc','AccController',['except'=>['create']]);
+// Route::resource('item','ItemController',['except'=>['create']]);

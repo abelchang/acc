@@ -8,7 +8,7 @@ $staDate = Carbon::now()->addMonth(4);
 // $nextDate = Carbon::createFromDate($thisYear,$thisMonth,'1')->addMonth();
 ?>
 <div class="container">
-	<div class="jumbotron">
+	<div class="">
 		<nav aria-label="...">
 			<ul class="pager">
 				<li class="previous"><a href=""><span aria-hidden="true">&larr;</span> Older</a></li>
@@ -16,18 +16,18 @@ $staDate = Carbon::now()->addMonth(4);
 			</ul>
 		</nav>
 		<!-- <div class="btn-group">
-			<button type="button" class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			<i class="glyphicon glyphicon-calendar"></i>
-			其他月份 <span class="caret"></span>
-			</button>
-			<ul class="dropdown-menu">
-				@for($i = 0; $i <= 7; $i++)
-				<li><a href=" "> {{$staDate->year}}/{{$staDate->month}} </a></li>
-				@endfor
-				<li role="separator" class="divider"></li>
-				<li><a href=" "> {{Carbon::now()->year}} </a></li>
-				<li><a href=" "> {{Carbon::now()->subYear()->year}} </a></li>
-			</ul>
+				<button type="button" class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<i class="glyphicon glyphicon-calendar"></i>
+				其他月份 <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu">
+						@for($i = 0; $i <= 7; $i++)
+						<li><a href=" "> {{$staDate->year}}/{{$staDate->month}} </a></li>
+						@endfor
+						<li role="separator" class="divider"></li>
+						<li><a href=" "> {{Carbon::now()->year}} </a></li>
+						<li><a href=" "> {{Carbon::now()->subYear()->year}} </a></li>
+				</ul>
 		</div> -->
 		<h1>{{ $indexDay->year }} / {{ $indexDay->month }}</h1>
 		<p>
@@ -55,7 +55,21 @@ $staDate = Carbon::now()->addMonth(4);
 						<td>{{$acc->create}}</td>
 						<td>{{$acc->items->name}}</td>
 						<td>{{$acc->price}}</td>
-						<td><a href="#"><span class="badge">修改</span></a><a href="#"><span class="badge">刪除</span></a></td>
+						<td>
+							<form method="POST" action="{{ route('acc.destroy',['acc'=>$acc->id]) }}" onsubmit="confirm("Are you sure?")">
+								{{ csrf_field() }}
+								<span>
+									<a class="btn btn-xs btn-primary" href="{{ route('acc.edit',['acc'=>$acc->id]) }}">
+			                            <i class="glyphicon glyphicon-pencil"></i>
+			                        </a>
+									<input type="hidden" name="_method" value="DELETE" />
+									<button type="submit" class="btn btn-xs btn-danger" data-submit-confirm-text="確定要刪除?" >
+									<i class="glyphicon glyphicon-trash"></i>
+									<!-- <span style="padding-left: 5px;"></span> -->
+									</button>
+								</span>
+							</form>
+						</td>
 					</tr>
 					@endforeach
 				</tbody>
@@ -64,4 +78,18 @@ $staDate = Carbon::now()->addMonth(4);
 		</div>
 	</div>
 </div>
+<script>
+    $(function () {
+        $("[data-submit-confirm-text]").click(function(e){
+            var $el = $(this);
+            e.preventDefault();
+            var confirmText = $el.attr('data-submit-confirm-text');
+            bootbox.confirm(confirmText, function(result) {
+            if (result) {
+                $el.closest('form').submit();
+            }
+            });
+        });
+    });
+</script>
 @endsection
