@@ -56,7 +56,7 @@ $nextDate = Carbon::create($indexYear,$indexMonth,1,0,0,0)->addMonth();
 					@foreach ($accs as $key=>$acc)
 					<tr>
 						<th scope="row">{{$key}}</th>
-						<td>{{$acc->create->format('m-d')}}</td>
+						<td>{{ Carbon::parse($acc->create)->format('m-d')}}</td>
 						<td>{{$acc->items->name}}</td>
 						<td>{{$acc->price}}</td>
 						<td>
