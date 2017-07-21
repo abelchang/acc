@@ -19,7 +19,7 @@
                             <div class="form-group">
                                 <label for="title" class="col-sm-2 control-label">開銷日期</label>
                                 <div class="col-sm-4">
-                                    <input type="date" class="form-control " id="create" name="create" value="{{$acc->create}}">
+                                    <input type="date" class="form-control " id="create" name="create" value="{{$acc->create->toDateString()}}">
                                 </div>
                             </div>
                             <div class="form-group">

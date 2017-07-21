@@ -102,11 +102,16 @@ class AccController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $acc = Acc::findOrFail($id);
-        $acc->fill($request->all());
-        $acc->save();
-        
-        return redirect('/');
+        $newacc = Acc::findOrFail($id);
+        $newacc->fill($request->all());
+        $newacc->save();
+        $priceTotal = 0;
+        $accs = Acc::whereYear('create',$newacc->create->year)->whereMonth('create',$newacc->create->month)->orderBy('create','ASC')->get();
+        foreach ($accs as $key => $acc) {
+            $priceTotal += $acc->price;
+        }
+        return view('acc.index',['indexYear'=>$newacc->create->year, 'indexMonth'=>$newacc->create->month, 'accs'=>$accs, 'priceTotal'=>$priceTotal]);
+        // return back();
     }
 
     /**
