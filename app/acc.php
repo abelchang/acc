@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Acc extends Model
 {
     protected $table = 'accs';
+    protected $dates = ['create'];
 
     protected $fillable = ['create','price','item'];
 

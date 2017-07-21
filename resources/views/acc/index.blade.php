@@ -52,7 +52,7 @@ $staDate = Carbon::now()->addMonth(4);
 					@foreach ($accs as $key=>$acc)
 					<tr>
 						<th scope="row">{{$key}}</th>
-						<td>{{$acc->create}}</td>
+						<td>{{$acc->create->format('m-d')}}</td>
 						<td>{{$acc->items->name}}</td>
 						<td>{{$acc->price}}</td>
 						<td>
