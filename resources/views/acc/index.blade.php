@@ -3,32 +3,36 @@
 @section('content')
 <?php
 use Carbon\Carbon;
-$staDate = Carbon::now()->addMonth(4);
-// $olderDate = Carbon::createFromDate($thisYear,$thisMonth,'1')->subMonth();
-// $nextDate = Carbon::createFromDate($thisYear,$thisMonth,'1')->addMonth();
+$indexDay = Carbon::create($indexYear,$indexMonth,1,0,0,0);
+$searchDate = Carbon::create($indexYear,$indexMonth,1,0,0,0);
+$olderDate = Carbon::create($indexYear,$indexMonth,1,0,0,0)->subMonth();
+$nextDate = Carbon::create($indexYear,$indexMonth,1,0,0,0)->addMonth();
 ?>
 <div class="container">
 	<div class="">
 		<nav aria-label="...">
 			<ul class="pager">
-				<li class="previous"><a href=""><span aria-hidden="true">&larr;</span> Older</a></li>
-				<li class="next"><a href="">Newer <span aria-hidden="true">&rarr;</span></a></li>
+				<li class="previous"><a href="{{ route('acc.showByMonth',['indexYear'=>$olderDate->year, 'indexMonth'=>$olderDate->month]) }}"><span aria-hidden="true">&larr;</span> Older</a></li>
+				<li class="next"><a href="{{ route('acc.showByMonth',['indexYear'=>$nextDate->year, 'indexMonth'=>$nextDate->month]) }}">Newer <span aria-hidden="true">&rarr;</span></a></li>
 			</ul>
+			<div class="pull-right">
+            <a class="btn btn-xs btn-danger" href="{{ route('acc.create') }}" style="margin-left: 20px;">
+                <i class="glyphicon glyphicon-plus"></i>
+                <!-- <span style="padding-left: 5px;">新訂單</span> -->
+            </a>
+            <div class="btn-group">
+              <button type="button" class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="glyphicon glyphicon-search"></i>
+                月份 <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu">
+                @for($i = 0; $i <= 12; $i++)
+                <li><a href=" {{ route('acc.showByMonth',['thisYear'=>$searchDate->subMonth()->year, '$thisMonth'=>$searchDate->month]) }} "> {{$searchDate->year}}/{{$searchDate->month}} </a></li>
+                @endfor
+              </ul>
+            </div>  
+        </div>
 		</nav>
-		<!-- <div class="btn-group">
-				<button type="button" class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				<i class="glyphicon glyphicon-calendar"></i>
-				其他月份 <span class="caret"></span>
-				</button>
-				<ul class="dropdown-menu">
-						@for($i = 0; $i <= 7; $i++)
-						<li><a href=" "> {{$staDate->year}}/{{$staDate->month}} </a></li>
-						@endfor
-						<li role="separator" class="divider"></li>
-						<li><a href=" "> {{Carbon::now()->year}} </a></li>
-						<li><a href=" "> {{Carbon::now()->subYear()->year}} </a></li>
-				</ul>
-		</div> -->
 		<h1>{{ $indexDay->year }} / {{ $indexDay->month }}</h1>
 		<p>
 			單月開銷：{{$priceTotal}}

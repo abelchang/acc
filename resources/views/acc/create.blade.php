@@ -45,9 +45,10 @@ $today = Carbon::today();
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" class="btn btn-m btn-primary">save</button>
-                                </div>
+                            	<div class="btn-group col-sm-offset-2 col-sm-10" role="group" aria-label="...">
+                      				<button type="submit" class="btn btn-m btn-info" name="submitButton" value="continue">連續新增</button>
+                      				<button type="submit" class="btn btn-m btn-success" name="submitButton" value="once">新增一筆</button>
+								</div>
                             </div>
                         </form>
                     </div>

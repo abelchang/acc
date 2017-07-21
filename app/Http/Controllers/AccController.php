@@ -21,12 +21,12 @@ class AccController extends Controller
     {
         $indexDay = Carbon::today();
         $priceTotal = 0;
-        $accs = Acc::whereMonth('create',$indexDay->month)->orderBy('create','ASC')->get();
+        $accs = Acc::whereYear('create',$indexDay->year)->whereMonth('create',$indexDay->month)->orderBy('create','ASC')->get();
         foreach ($accs as $key => $acc) {
             $priceTotal += $acc->price;
         }
 
-        return view('acc.index',['indexDay'=>$indexDay, 'accs'=>$accs, 'priceTotal'=>$priceTotal]);
+        return view('acc.index',['indexYear'=>$indexDay->year,'indexMonth'=>$indexDay->month, 'accs'=>$accs, 'priceTotal'=>$priceTotal]);
     }
 
     /**
@@ -49,9 +49,24 @@ class AccController extends Controller
      */
     public function store(Request $request)
     {
-        $acc = new Acc($request->all());
-        $acc->save();
-        return back();
+        $newacc = new Acc($request->all());
+        $newacc->save();
+        switch($request->submitButton) {
+
+            case 'continue':
+                return back();
+            break;
+
+            case 'once':
+                $priceTotal = 0;
+                $accs = Acc::whereYear('create',$newacc->create->year)->whereMonth('create',$newacc->create->month)->orderBy('create','ASC')->get();
+                foreach ($accs as $key => $acc) {
+                    $priceTotal += $acc->price;
+                }
+                return view('acc.index',['indexYear'=>$newacc->create->year, 'indexMonth'=>$newacc->create->month, 'accs'=>$accs, 'priceTotal'=>$priceTotal]);
+            break;
+        }
+        
     }
 
     /**
@@ -105,5 +120,38 @@ class AccController extends Controller
         $acc=Acc::findOrFail($id);
         $acc->delete();
         return back();
+    }
+
+    public function showByMonth($indexYear, $indexMonth)
+    {
+        $priceTotal = 0;
+        $accs = Acc::whereYear('create',$indexYear)->whereMonth('create',$indexMonth)->orderBy('create','ASC')->get();
+        foreach ($accs as $key => $acc) {
+            $priceTotal += $acc->price;
+        }
+
+        return view('acc.index',['indexYear'=>$indexYear, 'indexMonth'=>$indexMonth, 'accs'=>$accs, 'priceTotal'=>$priceTotal]);
+    }
+
+    public function showByYear($indexYear)
+    {
+        $priceTotal = 0;
+        $accs = Acc::whereYear('create',$indexYear)->orderBy('create','ASC')->get();
+        $items = Item::orderBy('name','ASC')->get();
+
+        foreach ($items as $key => $item) {
+            $itemSta[$item->name] = 0;
+        }
+
+        foreach ($accs as $key => $acc) {
+            $priceTotal += $acc->price;
+            foreach ($itemSta as $item => $price) {
+                if($item === $acc->items->name)  {
+                    $itemSta[$item] += $acc->price; 
+                }
+            }
+        }
+
+        return view('acc.showByYear',['indexYear'=>$indexYear, 'accs'=>$accs, 'itemSta'=>$itemSta, 'priceTotal'=>$priceTotal]);
     }
 }
