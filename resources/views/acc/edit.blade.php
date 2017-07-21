@@ -42,7 +42,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" class="btn btn-m btn-primary">save</button>
+                                    <button type="submit" class="btn btn-m btn-success" name="submitButton" value="once">保存修改</button>
                                 </div>
                             </div>
                         </form>
