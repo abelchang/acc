@@ -21,4 +21,5 @@ Route::get('acc/showByMonth/{indexYear}/{indexMonth}','AccController@showByMonth
 Route::get('acc/showByYear/{indexYear}','AccController@showByYear')->name('acc.showByYear');
 
 Route::resource('acc','AccController',['except'=>['create']]);
+Route::resource('item','ItemController');
 // Route::resource('item','ItemController',['except'=>['create']]);

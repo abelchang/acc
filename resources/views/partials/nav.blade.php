@@ -21,6 +21,8 @@ $thisYear = Carbon::today();
         <li><a href="{{route('acc.index')}}">開銷列表</a></li>
         <li><a href="{{route('acc.create')}}">新增開銷</a></li>
         <li><a href="{{route('acc.showByYear',['indexYear'=>$thisYear->year])}}">年度開銷</a></li>
+        <li><a href="{{route('item.index')}}">開銷項目</a></li>
+        <li><a href="{{route('item.create')}}">新增開銷項目</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
