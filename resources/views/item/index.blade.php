@@ -31,5 +31,20 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(function () {
+        $("[data-submit-confirm-text]").click(function(e){
+            var $el = $(this);
+            e.preventDefault();
+            var confirmText = $el.attr('data-submit-confirm-text');
+            bootbox.confirm(confirmText, function(result) {
+            if (result) {
+                $el.closest('form').submit();
+            }
+            });
+        });
+    });
+</script>
         
 @endsection
